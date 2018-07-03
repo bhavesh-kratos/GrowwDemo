@@ -24,7 +24,7 @@ class ScreenList extends Component {
         this.setState({ text });
     }
 
-    searchResult(){
+    searchResult() {
         this.props.clearData();
         this.fetchImages();
     }
@@ -42,6 +42,11 @@ class ScreenList extends Component {
 
     render() {
         const { columns } = this.state;
+        if (this.props.error) {
+            <View style={styles.container}>
+                <Text style={{ fontSize: 16 }} >API REQUEST FAILED CHANGE THE VALUE IN AUTHORIZATION HEADER AND RESTART/RELOAD THE APP</Text>
+            </View>
+        }
         return (
             <Container style={styles.container}>
                 <SearchBar text={this.state.text} changeUserText={this.changeUserText} screenWidth={SCREEN_WIDTH} searchResult={this.searchResult} />
