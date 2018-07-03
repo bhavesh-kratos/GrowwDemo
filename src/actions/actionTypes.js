@@ -1,0 +1,3 @@
+
+export const SEARCH_IMAGES = 'SEARCH_IMAGES';
+export const CLEAR_IMAGES_DATA = 'CLEAR_IMAGES_DATA'; 
