@@ -6,10 +6,10 @@ const getImagesPagesArray = state => state.images.data;
 export const getFlattenedImageList = createSelector(
     [getImagesPagesArray],
     (imagesPagesArray) => {
-        if (imagesPagesArray == []) {
-            return null;
+        if (typeof imagesPagesArray !== 'undefined' && imagesPagesArray.length > 0) {
+            return imagesPagesArray.reduce((acc, imagePage) => {
+                return [...acc, ...imagePage.data];
+            }, []);
         }
-        return imagesPagesArray.reduce((acc, imagePage) => {
-            return [...acc, ...imagePage.data];
-        }, []);
+        return null;
     });

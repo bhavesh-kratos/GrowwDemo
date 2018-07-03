@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { TextInput, View, StyleSheet, Text, FlatList, Image, Dimensions } from 'react-native';
+import { TextInput, View, StyleSheet, Text, FlatList, Image, Dimensions, ActivityIndicator } from 'react-native';
 import { Container } from 'native-base';
 import SearchBar from './SearchBar';
 import ImageComponent from './ImageComponent';
@@ -42,15 +42,16 @@ class ScreenList extends Component {
 
     render() {
         const { columns } = this.state;
-        if (this.props.error) {
+        if (this.props.error !== null) {
             <View style={styles.container}>
-                <Text style={{ fontSize: 16 }} >API REQUEST FAILED CHANGE THE VALUE IN AUTHORIZATION HEADER AND RESTART/RELOAD THE APP</Text>
+                <Text style={{ fontSize: 16 }} >API REQUEST FAILED, CHANGE THE VALUE IN AUTHORIZATION HEADER AND RESTART/RELOAD THE APP</Text>
             </View>
         }
         return (
             <Container style={styles.container}>
                 <SearchBar text={this.state.text} changeUserText={this.changeUserText} screenWidth={SCREEN_WIDTH} searchResult={this.searchResult} />
-                {this.props.imagePages != null && (<FlatList
+
+                {this.props.imagePages && (<FlatList
                     numColumns={3}
                     data={this.props.imagePages}
                     keyExtractor={this._keyExtractor}
@@ -58,6 +59,7 @@ class ScreenList extends Component {
                     onEndReached={this.fetchImages}
                     onEndReachedThreshold={0.87}
                 />)}
+                {this.props.fetching && <ActivityIndicator size="large" color="#0000ff" />}
             </Container>
         );
     }
